@@ -19,11 +19,22 @@ public class FusionItemsService {
     }
 
     public List<Items> getAllItems(){
-        List<Items> itemsList= fusionItemsRepository.findAll();
+        List<Items> itemsList= fusionItemsRepository.findAll(); 
         for(Items item:itemsList){
             System.out.println(item);
         }
 
+        return itemsList;
+    }
+
+    public List<Items> getItemsBySubCategory(String subCategory){
+
+        if(subCategory.equals("All"))
+        {
+            return getAllItems();
+        }
+
+        List<Items> itemsList= fusionItemsRepository.findItemsBySubCategory(subCategory);
         return itemsList;
     }
 

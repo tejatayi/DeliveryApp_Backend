@@ -4,6 +4,7 @@ import com.deliveryapplication.Fusion.service.FusionItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -22,7 +23,7 @@ public class FusionItemsController {
     private final FusionItemsService fusionItemsService;
 
     @Autowired
-    public FusionItemsController(FusionItemsService fusionItemsService) {
+    public FusionItemsController(FusionItemsService fusionItemsService) {      // constructor injection(DI - dependency injection)
         this.fusionItemsService = fusionItemsService;
     }
 
@@ -30,5 +31,11 @@ public class FusionItemsController {
     public ResponseEntity<List<Items>> getAllItems() {
         List<Items> items = fusionItemsService.getAllItems();
         return ResponseEntity.ok(items);  //
+    }
+
+    @GetMapping("/items/{category}")
+    public List<Items> getItemsByCategory(@PathVariable String category) {
+        List<Items> itemsBySubCategory = fusionItemsService.getItemsBySubCategory(category);
+        return itemsBySubCategory;
     }
 }
